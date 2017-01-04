@@ -7,6 +7,7 @@ import java.util.Vector;
  * Created by octavian.guzu on 1/4/2017.
  */
 public class Store {
+    String name = new String();
     Vector Customers = new Vector<Customer>();
     Vector Departments = new Vector<Department>();
 
