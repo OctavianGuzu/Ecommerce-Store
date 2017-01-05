@@ -6,9 +6,9 @@ package src;
 public class Item {
     private String name = new String();
     private int ID;
-    private float price;
+    private double price;
 
-    public Item(String name, int ID, float price) {
+    public Item(String name, int ID, double price) {
         this.name=name;
         this.ID=ID;
         this.price=price;
@@ -30,11 +30,15 @@ public class Item {
         this.ID = ID;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(float price) {
+    public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String toString() {
+        return "("+name+";"+ID+";"+price+")";
     }
 }
