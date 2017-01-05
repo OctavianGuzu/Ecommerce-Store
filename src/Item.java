@@ -9,9 +9,9 @@ public class Item {
     private double price;
 
     public Item(String name, int ID, double price) {
-        this.name=name;
-        this.ID=ID;
-        this.price=price;
+        this.name = name;
+        this.ID = ID;
+        this.price = price;
     }
 
     public String getName() {
@@ -39,6 +39,6 @@ public class Item {
     }
 
     public String toString() {
-        return "("+name+";"+ID+";"+price+")";
+        return "(" + name + ";" + ID + ";" + price + ")";
     }
 }

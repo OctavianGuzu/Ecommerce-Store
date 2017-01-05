@@ -36,8 +36,8 @@ public class Store {
     }
 
     public Department getDepartment(Integer integer) {
-        for(int i=0;i<Departments.size();i++)
-            if(Departments.get(i).getId() == integer)
+        for (int i = 0; i < Departments.size(); i++)
+            if (Departments.get(i).getId() == integer)
                 return Departments.get(i);
         return null;
     }

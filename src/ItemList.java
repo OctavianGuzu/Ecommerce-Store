@@ -22,7 +22,7 @@ public abstract class ItemList {
         }
 
         public String toString() {
-            return "("+element+")";
+            return "(" + element + ")";
         }
     }
 
@@ -40,19 +40,18 @@ public abstract class ItemList {
 
     public boolean add(Item item) {
         Node nod = new Node(item);
-        if(first == null) {
+        if (first == null) {
             first = nod;
             return true;
         }
         Node aux = first;
-        while(aux.next != null && comparator.compare(aux.element, item) > 0) {
+        while (aux.next != null && comparator.compare(aux.element, item) > 0) {
             aux = aux.next;
         }
-        if(aux.next == null) {
+        if (aux.next == null) {
             aux.next = nod;
             return true;
-        }
-        else {
+        } else {
             nod.prev = aux;
             nod.next = aux.next;
             nod.next.prev = nod;
@@ -64,8 +63,8 @@ public abstract class ItemList {
     public String toString() {
         StringBuffer result = new StringBuffer();
         Node aux = first;
-        while(aux != null) {
-            result.append(aux.element+" ");
+        while (aux != null) {
+            result.append(aux.element + " ");
             aux = aux.next;
         }
         return result.toString();
@@ -73,31 +72,31 @@ public abstract class ItemList {
 
     public boolean addAll(Collection<? extends Item> c) {
         List list = new ArrayList(c);
-        for(int i=0;i<list.size();i++)
+        for (int i = 0; i < list.size(); i++)
             add((Item) list.get(i));
         return true;
     }
 
     public Item getItem(int index) {
-        int i=0;
+        int i = 0;
         Node aux = first;
-        while(i < index && aux != null) {
+        while (i < index && aux != null) {
             aux = aux.next;
             i++;
         }
-        if(aux == null)
+        if (aux == null)
             return null;
         return aux.element;
     }
 
     public Node getNode(int index) {
-        int i=0;
+        int i = 0;
         Node aux = first;
-        while(i < index && aux != null) {
+        while (i < index && aux != null) {
             aux = aux.next;
             i++;
         }
-        if(aux == null)
+        if (aux == null)
             return null;
         return aux;
     }
@@ -105,10 +104,10 @@ public abstract class ItemList {
     public int indexOf(Item item) {
         Node aux = first;
         int index = 0;
-        while(aux != null) {
-            if(aux.element.getID() == item.getID())
+        while (aux != null) {
+            if (aux.element.getID() == item.getID())
                 return index;
-            index ++;
+            index++;
             aux = aux.next;
         }
         return -1;
@@ -117,10 +116,10 @@ public abstract class ItemList {
     public int indexOf(Node node) {
         Node aux = first;
         int index = 0;
-        while(aux != null) {
-            if(aux.element.getID() == node.element.getID())
+        while (aux != null) {
+            if (aux.element.getID() == node.element.getID())
                 return index;
-            index ++;
+            index++;
             aux = aux.next;
         }
         return -1;
@@ -128,8 +127,8 @@ public abstract class ItemList {
 
     public boolean contains(Node node) {
         Node aux = first;
-        while(aux != null) {
-            if(aux.element.getID() == node.element.getID())
+        while (aux != null) {
+            if (aux.element.getID() == node.element.getID())
                 return true;
             aux = aux.next;
         }
@@ -138,8 +137,8 @@ public abstract class ItemList {
 
     public boolean contains(Item item) {
         Node aux = first;
-        while(aux != null) {
-            if(aux.element.getID() == item.getID())
+        while (aux != null) {
+            if (aux.element.getID() == item.getID())
                 return true;
             aux = aux.next;
         }
@@ -149,19 +148,19 @@ public abstract class ItemList {
     public Item remove(int index) {
         Node aux = first;
         int i = 0;
-        while(i < index && aux != null) {
-            i ++;
+        while (i < index && aux != null) {
+            i++;
             aux = aux.next;
         }
-        if(aux == null)
+        if (aux == null)
             return null;
-        if(aux.next == null) {
+        if (aux.next == null) {
             aux.prev.next = null;
             aux.prev = null;
             aux.next = null;
             return aux.element;
         }
-        if(aux.prev == null) {
+        if (aux.prev == null) {
             first = aux.next;
             aux.prev = null;
             aux.next = null;
@@ -181,13 +180,13 @@ public abstract class ItemList {
 
     public boolean removeAll(Collection<? extends Item> c) {
         List list = new ArrayList(c);
-        for(int i=0;i<list.size();i++)
+        for (int i = 0; i < list.size(); i++)
             remove((Item) list.get(i));
         return true;
     }
 
     public boolean isEmpty() {
-        if(first == null)
+        if (first == null)
             return true;
         return false;
     }
@@ -199,7 +198,7 @@ public abstract class ItemList {
     public ListIterator<Node> listIterator(int index) {
         ItemIterator it = new ItemIterator();
         int i = 0;
-        while(i < index && it.hasNext())
+        while (i < index && it.hasNext())
             it.next();
         return it;
     }
@@ -207,7 +206,7 @@ public abstract class ItemList {
     public Double getTotalPrice() {
         Node aux = first;
         double result = 0;
-        while(aux != null) {
+        while (aux != null) {
             result += aux.element.getPrice();
             aux = aux.next;
         }
@@ -217,42 +216,44 @@ public abstract class ItemList {
     class ItemIterator implements ListIterator<Node> {
         Node current = first;
         int index = 0;
+
         @Override
         public boolean hasNext() {
-            if(current.next != null)
+            if (current != null)
                 return true;
             return false;
         }
 
         @Override
         public Node next() {
-            index ++;
+            index++;
+            Node aux = current;
             current = current.next;
-            return current;
+            return aux;
         }
 
         @Override
         public boolean hasPrevious() {
-            if(current.prev != null)
+            if (current.prev != null)
                 return true;
             return false;
         }
 
         @Override
         public Node previous() {
-            index --;
+            index--;
             current = current.prev;
             return current;
         }
 
         @Override
         public int nextIndex() {
-            return index+1;
+            return index + 1;
         }
 
         @Override
         public int previousIndex() {
-            return index-1;
+            return index - 1;
         }
 
         @Override
