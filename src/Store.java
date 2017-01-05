@@ -8,8 +8,8 @@ import java.util.Vector;
  */
 public class Store {
     String name = new String();
-    Vector Customers = new Vector<Customer>();
-    Vector Departments = new Vector<Department>();
+    Vector<Customer> Customers = new Vector<>();
+    Vector<Department> Departments = new Vector<>();
 
     public void enter(Customer c) {
         Customers.add(c);
@@ -20,7 +20,7 @@ public class Store {
     }
 
     public ShoppingCart getShoppingCart(Double budget) {
-        return null;
+        return new ShoppingCart(budget);
     }
 
     public Vector<Customer> getCustomers() {
@@ -35,7 +35,10 @@ public class Store {
         Departments.add(d);
     }
 
-    public Department getDepartment(Integer i) {
+    public Department getDepartment(Integer integer) {
+        for(int i=0;i<Departments.size();i++)
+            if(Departments.get(i).getId() == integer)
+                return Departments.get(i);
         return null;
     }
 }

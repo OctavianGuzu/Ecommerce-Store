@@ -6,6 +6,6 @@ package src;
 public class BookDepartment extends Department {
     @Override
     public void accept(ShoppingCart s) {
-
+        s.visit(this);
     }
 }

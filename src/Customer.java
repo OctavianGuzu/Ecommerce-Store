@@ -7,7 +7,14 @@ import java.util.Vector;
  */
 public class Customer {
     String name = new String();
-    ShoppingCart shoppingCart = new ShoppingCart();
-    WishList wishList = new WishList();
-    Vector<Notification> notifications = new Vector<Notification>();
+    ShoppingCart shoppingCart;
+    WishList wishList;
+    Vector<Notification> notifications;
+
+    public Customer(String name, double budget) {
+        this.name = name;
+        shoppingCart = new ShoppingCart(budget);
+        wishList = new WishList();
+        notifications = new Vector<>();
+    }
 }

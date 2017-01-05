@@ -7,9 +7,9 @@ import java.util.Vector;
  */
 public abstract class Department {
     String name;
-    Vector<Item> items = new Vector<Item>();
-    Vector<Customer> customersWhoBought = new Vector<Customer>();
-    Vector<Customer> customersWhoWish = new Vector<Customer>();
+    Vector<Item> items = new Vector<>();
+    Vector<Customer> customersWhoBought = new Vector<>();
+    Vector<Customer> customersWhoWish = new Vector<>();
     int ID;
 
     public void enter(Customer c) {
