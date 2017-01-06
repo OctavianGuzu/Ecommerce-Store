@@ -89,6 +89,17 @@ public abstract class ItemList {
         return aux.element;
     }
 
+    public Item getItemByID(int ID) {
+        int i = 0;
+        Node aux = first;
+        while(aux != null) {
+            if(aux.element.getID() == ID)
+                return aux.element;
+            aux = aux.next;
+        }
+        return null;
+    }
+
     public Node getNode(int index) {
         int i = 0;
         Node aux = first;
@@ -102,6 +113,8 @@ public abstract class ItemList {
     }
 
     public int indexOf(Item item) {
+        if(item == null)
+            return -1;
         Node aux = first;
         int index = 0;
         while (aux != null) {
@@ -146,6 +159,8 @@ public abstract class ItemList {
     }
 
     public Item remove(int index) {
+        if(index == -1)
+            return null;
         Node aux = first;
         int i = 0;
         while (i < index && aux != null) {
@@ -154,6 +169,10 @@ public abstract class ItemList {
         }
         if (aux == null)
             return null;
+        if(aux.next == null && aux.prev == null) {
+            first = null;
+            return null;
+        }
         if (aux.next == null) {
             aux.prev.next = null;
             aux.prev = null;
@@ -176,6 +195,10 @@ public abstract class ItemList {
     public boolean remove(Item item) {
         this.remove(indexOf(item));
         return true;
+    }
+
+    public void removeByID(int ID) {
+        this.remove(getItemByID(ID));
     }
 
     public boolean removeAll(Collection<? extends Item> c) {

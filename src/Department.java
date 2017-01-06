@@ -5,7 +5,7 @@ import java.util.Vector;
 /**
  * Created by octavian.guzu on 1/4/2017.
  */
-public abstract class Department {
+public abstract class Department implements Subject {
     String name;
     Vector<Item> items = new Vector<>();
     Vector<Customer> customersWhoBought = new Vector<>();
@@ -45,7 +45,25 @@ public abstract class Department {
     }
 
     public void notifyAllObservers(Notification n) {
-        // TODO
+        for(int i=0;i<customersWhoWish.size();i++)
+            customersWhoWish.get(i).update(n);
+    }
+
+    public Item getItem(int ID) {
+        for(int i=0;i<items.size();i++)
+            if(items.get(i).getID() == ID)
+                return items.get(i);
+        return null;
+    }
+
+    public Department(String name, Vector<Item> items, int ID) {
+        this.name = name;
+        this.items = items;
+        this.ID = ID;
+    }
+
+    public Department() {
+        this(null, null, 0);
     }
 
     public abstract void accept(ShoppingCart s);

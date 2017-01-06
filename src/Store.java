@@ -10,6 +10,7 @@ public class Store {
     String name = new String();
     Vector<Customer> Customers = new Vector<>();
     Vector<Department> Departments = new Vector<>();
+    private static Store instance;
 
     public void enter(Customer c) {
         Customers.add(c);
@@ -41,4 +42,17 @@ public class Store {
                 return Departments.get(i);
         return null;
     }
+
+    private Store(String name, Vector<Customer> Customers, Vector<Department> Departments) {
+        this.name = name;
+        this.Customers = Customers;
+        this.Departments = Departments;
+    }
+
+    public static Store getInstance(String name, Vector<Customer> Customers, Vector<Department> Departments) {
+        if(instance == null)
+            instance = new Store(name, Customers, Departments);
+        return instance;
+    }
+
 }
