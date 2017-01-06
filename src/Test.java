@@ -39,13 +39,12 @@ public class Test {
     }
 
     public static void main(String args[]) throws IOException {
-        /*ShoppingCart cart = new ShoppingCart(10);
+        /*WishList cart = new WishList();
         cart.add(new Item("Octav", 10, 2.5));
-        cart.add(new Item("Radu", 11, 3.88));
-        cart.add(new Item("Mihai", 12, 2.87));
-        cart.add(new Item("Ana", 13, 2.87));
-        System.out.println(cart);
-        System.out.println(cart.getTotalPrice());*/
+        cart.add(new Item("Radu", 11, 3.7));
+        cart.add(new Item("Mihnea", 12, 1.2));
+        cart.add(new Item("Ana", 13, 2.5));
+        System.out.println(cart);*/
 
         BufferedReader store = new BufferedReader(new FileReader("store.txt"));
         String storeName = store.readLine();
@@ -176,8 +175,33 @@ public class Test {
                 MainStore.getDepartment(DepID).notifyAllObservers(notif);
                 //System.out.println(notif);
             }
+            if(evenType.equals("modifyProduct")) {
+                int DepID = Integer.parseInt(line.nextToken());
+                int ItemID = Integer.parseInt(line.nextToken());
+                double newPrice = Double.parseDouble(line.nextToken());
+                MainStore.getDepartment(DepID).getItem(ItemID).setPrice(newPrice);
+                Notification notif = new Notification(null, NotificationType.MODIFY, DepID, ItemID);
+                MainStore.getDepartment(DepID).notifyAllObservers(notif);
+            }
+            if(evenType.equals("delProduct")) {
+                int productID = Integer.parseInt(line.nextToken());
+                Department departament = null;
+                Item toDelete = null;
+                for(int j=0;j<MainStore.getDepartments().size();j++) {
+                    departament = MainStore.getDepartments().get(j);
+                    toDelete = departament.getItem(productID);
+                    if(toDelete != null) {
+                        departament.items.remove(toDelete);
+                        break;
+                    }
+                }
+                if(departament != null) {
+                    Notification notif = new Notification(null,NotificationType.REMOVE, departament.ID, productID);
+                    departament.notifyAllObservers(notif);
+                }
+            }
         }
-        System.out.println(MainStore.getDepartment(1).items);
+        System.out.println(MainStore.Customers.get(4).wishList);
 
 
 

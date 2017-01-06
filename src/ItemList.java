@@ -26,17 +26,17 @@ public abstract class ItemList {
         }
     }
 
-    Node first;
-    Comparator<Item> comparator;
+    Node first=null;
+    Comparator comparator;
 
-    public ItemList(Comparator comparator) {
+   /* public ItemList(Comparator comparator) {
         first = null;
         this.comparator = comparator;
-    }
+    }*/
 
-    public ItemList() {
+   /* public ItemList() {
         this(null);
-    }
+    }*/
 
     public boolean add(Item item) {
         Node nod = new Node(item);
@@ -45,7 +45,8 @@ public abstract class ItemList {
             return true;
         }
         Node aux = first;
-        while (aux.next != null && comparator.compare(aux.element, item) > 0) {
+        /*while (aux.next != null && comparator.compare(item, aux.element) > 0) {
+            //System.out.println(comparator.compare(aux.element, item));
             aux = aux.next;
         }
         if (aux.next == null) {
@@ -57,6 +58,42 @@ public abstract class ItemList {
             nod.next.prev = nod;
             aux.next = nod;
             return true;
+        }*/
+        if(aux.next == null) {
+            if(comparator.compare(item, aux.element) < 0) {
+                nod.next = aux;
+                aux.prev = nod;
+                first = nod;
+                return true;
+            }
+            else {
+                aux.next = nod;
+                nod.prev = aux;
+                return true;
+            }
+        }
+        if(aux.next != null && comparator.compare(item, aux.element) < 0) {
+            nod.next = aux;
+            aux.prev = nod;
+            first = nod;
+            return true;
+        }
+        else {
+            while(aux.next != null && comparator.compare(item, aux.next.element) > 0) {
+                aux = aux.next;
+            }
+            if (aux.next != null) {
+                nod.prev = aux;
+                nod.next = aux.next;
+                nod.next.prev = nod;
+                aux.next = nod;
+                return true;
+            }
+            else {
+                aux.next = nod;
+                nod.prev = aux;
+                return true;
+            }
         }
     }
 

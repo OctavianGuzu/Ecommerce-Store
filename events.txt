@@ -1,4 +1,4 @@
-25
+26
 addItem;100;ShoppingCart;Andrei
 addItem;104;WishList;Mihai
 addProduct;1;111;4.25;Mara - Ioan Slavici
@@ -8,6 +8,7 @@ addItem;200;WishList;Mihai
 addItem;403;WishList;Mihai
 getItems;WishList;Mihai
 addProduct;4;404;9.75;Big fish
+addItem;404;WishList;Mihai
 delProduct;404
 getItem;Mihai
 getItems;WishList;Mihai
@@ -24,3 +25,4 @@ getObservers;2
 getObservers;3
 getObservers;4
 getNotifications;Mihai
+delItem;403;WishList;Mihai

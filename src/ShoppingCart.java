@@ -13,20 +13,22 @@ public class ShoppingCart extends ItemList implements Visitor {
     double budget;
 
     public ShoppingCart(double budget) {
-        super((o1, o2) -> {
-            Item i1 = (Item) o1;
-            Item i2 = (Item) o2;
-            if (i1.getPrice() - i2.getPrice() < 0)
-                return -1;
-            else {
-                if (i1.getPrice() - i2.getPrice() > 0)
-                    return 1;
-                else
-                    return i1.getName().compareTo(i2.getName());
-            }
-        });
-
         this.budget = budget;
+        super.comparator = new Comparator() {
+            @Override
+            public int compare(Object o1, Object o2) {
+                Item i1 = (Item) o1;
+                Item i2 = (Item) o2;
+                if (i1.getPrice() - i2.getPrice() < 0)
+                    return -1;
+                else {
+                    if (i1.getPrice() - i2.getPrice() > 0)
+                        return 1;
+                    else
+                        return i1.getName().compareTo(i2.getName());
+                }
+            }
+        };
     }
 
     public boolean add(Item item) {
