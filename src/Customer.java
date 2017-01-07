@@ -5,7 +5,7 @@ import java.util.Vector;
 /**
  * Created by octavian.guzu on 1/4/2017.
  */
-public class Customer implements Observer {
+public class Customer extends Strategy implements Observer {
     String name = new String();
     ShoppingCart shoppingCart;
     WishList wishList;
