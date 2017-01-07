@@ -1,6 +1,11 @@
-5
-Alina;750;A
-Maria;950;B
-Andrada;1650;C
-Andrei;1500;A
-Mihai;500;A
+10
+Andrei;7825;B
+Andreea;6777;A
+Maria;5029;A
+Alexandra;6094;B
+Marius;7294;B
+Alexandru;7708;B
+Andrada;9222;B
+Mihai;6991;B
+Cristina;6757;B
+Ion;7900;C

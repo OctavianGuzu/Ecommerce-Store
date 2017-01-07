@@ -263,6 +263,29 @@ public class Test {
                     }
                 }
             }
+            if(evenType.equals("getItem")) {
+                String CustName = line.nextToken();
+                for(int j=0;j<MainStore.Customers.size();j++) {
+                    Customer client = MainStore.Customers.get(j);
+                    if(client.name.equals(CustName)) {
+                        System.out.println(client.execute());
+                        break;
+                    }
+                }
+            }
+            if(evenType.equals("accept")) {
+                int DepID = Integer.parseInt(line.nextToken());
+                String CustName = line.nextToken();
+                Department inWhich = MainStore.getDepartment(DepID);
+                for(int j=0;j<MainStore.Customers.size();j++) {
+                    Customer toWitch = MainStore.Customers.get(j);
+                    if(toWitch.name.equals(CustName)) {
+                        inWhich.accept(toWitch.shoppingCart);
+                        //System.out.println(CustName + " " + inWhich.name);
+                        break;
+                    }
+                }
+            }
         }
         //System.out.println(MainStore.Customers.get(4).wishList);
         //System.out.println(MainStore.getDepartment(1).items);

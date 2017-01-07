@@ -7,7 +7,7 @@ import java.util.Vector;
  */
 public class SoftwareDepartment extends Department {
     @Override
-    public void accept(ShoppingCart s) {
+    public void accept(ShoppingCart s) throws CloneNotSupportedException {
         s.visit(this);
     }
 

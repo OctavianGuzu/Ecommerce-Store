@@ -12,6 +12,15 @@ public abstract class Department implements Subject {
     Vector<Customer> customersWhoWish = new Vector<>();
     int ID;
 
+    public boolean containsItemByID(Item i) {
+        for(int j=0;j<items.size();j++) {
+            Item current = items.get(j);
+            if(current.getID() == i.getID())
+                return true;
+        }
+        return false;
+    }
+
     public void enter(Customer c) {
         customersWhoBought.add(c);
     }
@@ -66,5 +75,5 @@ public abstract class Department implements Subject {
         this(null, null, 0);
     }
 
-    public abstract void accept(ShoppingCart s);
+    public abstract void accept(ShoppingCart s) throws CloneNotSupportedException;
 }

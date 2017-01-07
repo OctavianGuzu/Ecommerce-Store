@@ -1,5 +1,7 @@
 package src;
 
+import java.text.DecimalFormat;
+
 /**
  * Created by octavian.guzu on 1/4/2017.
  */
@@ -39,7 +41,8 @@ public class Item implements Cloneable{
     }
 
     public String toString() {
-        return name + ";" + ID + ";" + price;
+        DecimalFormat df = new DecimalFormat("#.00");
+        return name + ";" + ID + ";" + df.format(price);
     }
 
     protected Object clone() throws CloneNotSupportedException {

@@ -39,15 +39,16 @@ public class ShoppingCart extends ItemList implements Visitor {
     }
 
     @Override
-    public void visit(BookDepartment bookDepartment) {
+    public void visit(BookDepartment bookDepartment) throws CloneNotSupportedException {
         Node aux = first;
         Vector<Item> itemsToDelete = new Vector();
         while (aux != null) {
-            if (bookDepartment.getItems().contains(aux.element)) {
+            if (bookDepartment.containsItemByID(aux.element)) {
                 Item temp = aux.element;
                 itemsToDelete.add(aux.element);
                 temp.setPrice(temp.getPrice() - 0.1 * temp.getPrice());
-                add(temp);
+                Item clonaa =(Item) temp.clone();
+                add(clonaa);
             }
             aux = aux.next;
         }
@@ -70,7 +71,7 @@ public class ShoppingCart extends ItemList implements Visitor {
     }
 
     @Override
-    public void visit(SoftwareDepartment softwareDepartment) {
+    public void visit(SoftwareDepartment softwareDepartment) throws CloneNotSupportedException {
         Node aux = first;
         int ok = 0;
         while (aux != null) {
@@ -90,7 +91,8 @@ public class ShoppingCart extends ItemList implements Visitor {
                     Item temp = aux.element;
                     itemsToDelete.add(temp);
                     temp.setPrice( 0.8 * temp.getPrice());
-                    add(temp);
+                    Item clonaa =(Item) temp.clone();
+                    add(clonaa);
                 }
                 aux = aux.next;
             }
@@ -101,7 +103,7 @@ public class ShoppingCart extends ItemList implements Visitor {
     }
 
     @Override
-    public void visit(VideoDepartment videoDepartment) {
+    public void visit(VideoDepartment videoDepartment) throws CloneNotSupportedException {
         Item mostExpensive = videoDepartment.items.get(0);
         for(int i=1;i<videoDepartment.items.size();i++) {
             if(videoDepartment.items.get(i).getPrice() > mostExpensive.getPrice())
@@ -123,7 +125,8 @@ public class ShoppingCart extends ItemList implements Visitor {
                     Item temp = aux.element;
                     itemsToDelete.add(temp);
                     temp.setPrice(0.85 * temp.getPrice());
-                    add(temp);
+                    Item Clonaa = (Item) temp.clone();
+                    add(Clonaa);
                 }
                 aux = aux.next;
             }

@@ -1,5 +1,6 @@
 package src;
 
+import java.text.DecimalFormat;
 import java.util.*;
 
 /**
@@ -28,6 +29,7 @@ public abstract class ItemList {
 
     Node first=null;
     Comparator comparator;
+    LinkedList<Item> theOrder = new LinkedList<>();
 
    /* public ItemList(Comparator comparator) {
         first = null;
@@ -42,6 +44,7 @@ public abstract class ItemList {
         Node nod = new Node(item);
         if (first == null) {
             first = nod;
+            theOrder.addFirst(nod.element);
             return true;
         }
         Node aux = first;
@@ -64,11 +67,13 @@ public abstract class ItemList {
                 nod.next = aux;
                 aux.prev = nod;
                 first = nod;
+                theOrder.addFirst(nod.element);
                 return true;
             }
             else {
                 aux.next = nod;
                 nod.prev = aux;
+                theOrder.addFirst(nod.element);
                 return true;
             }
         }
@@ -76,6 +81,7 @@ public abstract class ItemList {
             nod.next = aux;
             aux.prev = nod;
             first = nod;
+            theOrder.addFirst(nod.element);
             return true;
         }
         else {
@@ -87,11 +93,13 @@ public abstract class ItemList {
                 nod.next = aux.next;
                 nod.next.prev = nod;
                 aux.next = nod;
+                theOrder.addFirst(nod.element);
                 return true;
             }
             else {
                 aux.next = nod;
                 nod.prev = aux;
+                theOrder.addFirst(nod.element);
                 return true;
             }
         }
@@ -215,30 +223,38 @@ public abstract class ItemList {
             return null;
         if(aux.next == null && aux.prev == null) {
             first = null;
+            theOrder.remove(aux.element);
             return null;
         }
         if (aux.next == null) {
             aux.prev.next = null;
             aux.prev = null;
             aux.next = null;
+            theOrder.remove(aux.element);
             return aux.element;
         }
         if (aux.prev == null) {
             first = aux.next;
             aux.prev = null;
             aux.next = null;
+            theOrder.remove(aux.element);
             return aux.element;
         }
         aux.prev.next = aux.next;
         aux.next.prev = aux.prev;
         aux.prev = null;
         aux.next = null;
+        theOrder.remove(aux.element);
         return aux.element;
     }
 
     public boolean remove(Item item) {
         this.remove(indexOf(item));
         return true;
+    }
+
+    public Item getLastItem() {
+        return theOrder.getFirst();
     }
 
     public void removeByID(int ID) {
@@ -256,6 +272,26 @@ public abstract class ItemList {
         if (first == null)
             return true;
         return false;
+    }
+
+    public Item getCheapest() {
+        Node toReturn = first;
+        if(toReturn == null)
+            return null;
+        if(toReturn.next == null)
+            return toReturn.element;
+        Node aux = first.next;
+        while(aux != null) {
+            if(aux.element.getPrice() - toReturn.element.getPrice() < 0)
+                toReturn = aux;
+            aux = aux.next;
+        }
+        return toReturn.element;
+    }
+    public Item getFirst() {
+        if(first == null)
+            return null;
+        return first.element;
     }
 
     public ListIterator<Node> listIterator() {
@@ -277,7 +313,8 @@ public abstract class ItemList {
             result += aux.element.getPrice();
             aux = aux.next;
         }
-        return result;
+        DecimalFormat df = new DecimalFormat("#.00");
+        return Double.parseDouble(df.format(result));
     }
 
     class ItemIterator implements ListIterator<Node> {
