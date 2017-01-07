@@ -31,14 +31,6 @@ public abstract class ItemList {
     Comparator comparator;
     LinkedList<Item> theOrder = new LinkedList<>();
 
-   /* public ItemList(Comparator comparator) {
-        first = null;
-        this.comparator = comparator;
-    }*/
-
-   /* public ItemList() {
-        this(null);
-    }*/
 
     public boolean add(Item item) {
         Node nod = new Node(item);
@@ -48,20 +40,6 @@ public abstract class ItemList {
             return true;
         }
         Node aux = first;
-        /*while (aux.next != null && comparator.compare(item, aux.element) > 0) {
-            //System.out.println(comparator.compare(aux.element, item));
-            aux = aux.next;
-        }
-        if (aux.next == null) {
-            aux.next = nod;
-            return true;
-        } else {
-            nod.prev = aux;
-            nod.next = aux.next;
-            nod.next.prev = nod;
-            aux.next = nod;
-            return true;
-        }*/
         if(aux.next == null) {
             if(comparator.compare(item, aux.element) < 0) {
                 nod.next = aux;
@@ -235,6 +213,7 @@ public abstract class ItemList {
         }
         if (aux.prev == null) {
             first = aux.next;
+            first.prev = null;
             aux.prev = null;
             aux.next = null;
             theOrder.remove(aux.element);
@@ -309,12 +288,12 @@ public abstract class ItemList {
     public Double getTotalPrice() {
         Node aux = first;
         double result = 0;
+        DecimalFormat df = new DecimalFormat("#.00");
         while (aux != null) {
             result += aux.element.getPrice();
             aux = aux.next;
         }
-        DecimalFormat df = new DecimalFormat("#.00");
-        return Double.parseDouble(df.format(result));
+        return result;
     }
 
     class ItemIterator implements ListIterator<Node> {

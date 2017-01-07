@@ -42,18 +42,22 @@ public class ShoppingCart extends ItemList implements Visitor {
     public void visit(BookDepartment bookDepartment) throws CloneNotSupportedException {
         Node aux = first;
         Vector<Item> itemsToDelete = new Vector();
+        Vector<Item> itemsToADD = new Vector<>();
         while (aux != null) {
             if (bookDepartment.containsItemByID(aux.element)) {
                 Item temp = aux.element;
                 itemsToDelete.add(aux.element);
-                temp.setPrice(temp.getPrice() - 0.1 * temp.getPrice());
+                temp.setPrice(0.9 * temp.getPrice());
                 Item clonaa =(Item) temp.clone();
-                add(clonaa);
+                itemsToADD.add(clonaa);
             }
             aux = aux.next;
         }
         for(int i=0;i<itemsToDelete.size();i++) {
-            remove(itemsToDelete.get(i));
+            removeByID(itemsToDelete.get(i).getID());
+        }
+        for(int i=0;i<itemsToADD.size();i++) {
+            add(itemsToADD.get(i));
         }
     }
 
@@ -62,7 +66,7 @@ public class ShoppingCart extends ItemList implements Visitor {
         Node aux = first;
         double sum = 0;
         while (aux != null) {
-            if (musicDepartment.getItems().contains(aux.element)) {
+            if (musicDepartment.containsItemByID(aux.element)) {
                 sum += aux.element.getPrice();
             }
             aux = aux.next;
@@ -75,7 +79,7 @@ public class ShoppingCart extends ItemList implements Visitor {
         Node aux = first;
         int ok = 0;
         while (aux != null) {
-            if (softwareDepartment.getItems().contains(aux.element)) {
+            if (softwareDepartment.containsItemByID(aux.element)) {
                 if(getTotalPrice() + aux.element.getPrice() <= budget) {
                     ok = 1;
                     break;
@@ -86,18 +90,22 @@ public class ShoppingCart extends ItemList implements Visitor {
         if (ok == 0) {
             aux = first;
             Vector<Item> itemsToDelete = new Vector();
+            Vector<Item> itemsToADD = new Vector<>();
             while( aux != null) {
-                if (softwareDepartment.getItems().contains(aux.element)) {
+                if (softwareDepartment.containsItemByID(aux.element)) {
                     Item temp = aux.element;
                     itemsToDelete.add(temp);
                     temp.setPrice( 0.8 * temp.getPrice());
                     Item clonaa =(Item) temp.clone();
-                    add(clonaa);
+                    itemsToADD.add(clonaa);
                 }
                 aux = aux.next;
             }
             for(int i=0;i<itemsToDelete.size();i++) {
                 remove(itemsToDelete.get(i));
+            }
+            for(int i=0;i<itemsToADD.size();i++) {
+                add(itemsToADD.get(i));
             }
         }
     }
@@ -112,7 +120,7 @@ public class ShoppingCart extends ItemList implements Visitor {
         Node aux = first;
         double sum = 0;
         while(aux != null) {
-            if (videoDepartment.getItems().contains(aux.element)) {
+            if (videoDepartment.containsItemByID(aux.element)) {
                 sum += aux.element.getPrice();
             }
             aux = aux.next;
@@ -120,18 +128,22 @@ public class ShoppingCart extends ItemList implements Visitor {
         if(sum > mostExpensive.getPrice()) {
             aux = first;
             Vector<Item> itemsToDelete = new Vector();
+            Vector<Item> itemsToAdd = new Vector<>();
             while(aux != null) {
-                if (videoDepartment.getItems().contains(aux.element)) {
+                if (videoDepartment.containsItemByID(aux.element)) {
                     Item temp = aux.element;
                     itemsToDelete.add(temp);
                     temp.setPrice(0.85 * temp.getPrice());
                     Item Clonaa = (Item) temp.clone();
-                    add(Clonaa);
+                    itemsToAdd.add(Clonaa);
                 }
                 aux = aux.next;
             }
             for(int i=0;i<itemsToDelete.size();i++) {
                 remove(itemsToDelete.get(i));
+            }
+            for(int i=0;i<itemsToAdd.size();i++) {
+                add(itemsToAdd.get(i));
             }
         }
         sum = 0;

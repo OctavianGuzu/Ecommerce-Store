@@ -28,11 +28,27 @@ public class Customer implements Observer {
 
     @Override
     public void update(Notification notification) throws CloneNotSupportedException {
-        notifications.add(notification);
+        if(!notifications.contains(notification))
+            notifications.add(notification);
 
         if(notification.type == NotificationType.REMOVE) {
             shoppingCart.removeByID(notification.productID);
             wishList.removeByID(notification.productID);
+            Store magazin = Store.getInstance("", null, null);
+            int productID = notification.productID;
+            int departID = notification.departmentID;
+            Department fromWhich = magazin.getDepartment(departID);
+            int ok = 0;
+            for(int j=0;j<fromWhich.items.size();j++) {
+                Item toCheck = fromWhich.items.get(j);
+                if(wishList.getItemByID(toCheck.getID()) != null) {
+                    ok =1;
+                    break;
+                }
+            }
+            if( ok == 0) {
+                fromWhich.removeObserver(this);
+            }
         }
 
         if(notification.type == NotificationType.MODIFY) {
@@ -84,7 +100,7 @@ public class Customer implements Observer {
         if(strategy.equals("B")) {
             Item toReturnn = wishList.getFirst();
             if(shoppingCart.getTotalPrice() + toReturnn.getPrice() < budget) {
-                wishList.remove(toReturnn);
+                wishList.remove(wishList.first.element);
                 shoppingCart.add(toReturnn);
                 int DepartmentFrom = -1;
                 Store shopping = Store.getInstance("", null, null);

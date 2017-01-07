@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.DoubleSummaryStatistics;
 import java.util.StringTokenizer;
 import java.util.Vector;
@@ -39,12 +40,6 @@ public class Test {
     }
 
     public static void main(String args[]) throws IOException, CloneNotSupportedException {
-        /*WishList cart = new WishList();
-        cart.add(new Item("Octav", 10, 2.5));
-        cart.add(new Item("Radu", 11, 3.7));
-        cart.add(new Item("Mihnea", 12, 1.2));
-        cart.add(new Item("Ana", 13, 2.5));
-        System.out.println(cart);*/
 
         BufferedReader store = new BufferedReader(new FileReader("store.txt"));
         String storeName = store.readLine();
@@ -56,7 +51,6 @@ public class Test {
         departments.add(obj.createDepartment(store));
         departments.add(obj.createDepartment(store));
         departments.add(obj.createDepartment(store));
-        //System.out.println(departments.get(3).items);
 
         //Reading Customers
         Vector<Customer> customers = new Vector<>();
@@ -69,7 +63,6 @@ public class Test {
             String strategy = line.nextToken();
             customers.add(new Customer(customerName, budget, strategy));
         }
-        //System.out.println(customers);
 
         //Creating the Store
         Store MainStore = Store.getInstance(storeName, customers, departments);
@@ -83,12 +76,10 @@ public class Test {
             if(evenType.equals("addItem")) {
                 int itemID = Integer.parseInt(line.nextToken());
                 int departmentIDtoADD = -1;
-                //System.out.println(itemID);
                 Item itemToAdd=null;
                 for(int j=0;j<departments.size();j++) {
                     itemToAdd = departments.get(j).getItem(itemID);
                     if( itemToAdd != null) {
-                        //System.out.println(itemToAdd);
                         departmentIDtoADD = departments.get(j).getId();
                         break;
                     }
@@ -123,8 +114,9 @@ public class Test {
                         if(customerToAdd != null) {
                             Item newItem =(Item) itemToAdd.clone();
                             customerToAdd.wishList.add(newItem);
-                            if(!MainStore.getDepartment(departmentIDtoADD).customersWhoWish.contains(customerToAdd))
+                            if(!MainStore.getDepartment(departmentIDtoADD).customersWhoWish.contains(customerToAdd)) {
                                 MainStore.getDepartment(departmentIDtoADD).addObserver(customerToAdd);
+                            }
                         }
                     }
                 }
@@ -149,13 +141,12 @@ public class Test {
                             break;
                         }
                     }
-                    //System.out.println(departmentIDfromWhere);
                     int ok = 0;
                     if(departmentIDfromWhere == -1)
                         continue;;
                     for(int j=0;j<MainStore.getDepartment(departmentIDfromWhere).items.size();j++) {
                         Item itemToCheck = MainStore.getDepartment(departmentIDfromWhere).items.get(j);
-                        if (customerToDel.wishList.getItemByID(itemID) != null) {
+                        if (customerToDel.wishList.getItemByID(itemToCheck.getID()) != null) {
                             ok = 1;
                             break;
                         }
@@ -178,7 +169,6 @@ public class Test {
                 MainStore.getDepartment(DepID).addItem(ItemToADD);
                 Notification notif = new Notification(null, NotificationType.ADD, DepID, ItemID);
                 MainStore.getDepartment(DepID).notifyAllObservers(notif);
-                //System.out.println(notif);
             }
             if(evenType.equals("modifyProduct")) {
                 int DepID = Integer.parseInt(line.nextToken());
@@ -234,7 +224,8 @@ public class Test {
                     for(int j=0;j<MainStore.Customers.size();j++) {
                         Customer toPrint = MainStore.Customers.get(j);
                         if(toPrint.name.equals(customerName)) {
-                            System.out.println(toPrint.shoppingCart.getTotalPrice());
+                            DecimalFormat df = new DecimalFormat("#.00");
+                            System.out.println(df.format(toPrint.shoppingCart.getTotalPrice()));
                             break;
                         }
                     }
@@ -243,7 +234,8 @@ public class Test {
                     for(int j=0;j<MainStore.Customers.size();j++) {
                         Customer toPrint = MainStore.Customers.get(j);
                         if(toPrint.name.equals(customerName)) {
-                            System.out.println(toPrint.wishList.getTotalPrice());
+                            DecimalFormat df = new DecimalFormat("#.00");
+                            System.out.println(df.format(toPrint.wishList.getTotalPrice()));
                             break;
                         }
                     }
@@ -281,14 +273,11 @@ public class Test {
                     Customer toWitch = MainStore.Customers.get(j);
                     if(toWitch.name.equals(CustName)) {
                         inWhich.accept(toWitch.shoppingCart);
-                        //System.out.println(CustName + " " + inWhich.name);
                         break;
                     }
                 }
             }
         }
-        //System.out.println(MainStore.Customers.get(4).wishList);
-        //System.out.println(MainStore.getDepartment(1).items);
 
 
 
