@@ -9,6 +9,7 @@ import java.util.Date;
 enum NotificationType {
     ADD, REMOVE, MODIFY
 }
+
 public class Notification {
     Date data;
     NotificationType type;
@@ -23,6 +24,6 @@ public class Notification {
     }
 
     public String toString() {
-        return type+";"+productID+";"+departmentID;
+        return type + ";" + productID + ";" + departmentID;
     }
 }

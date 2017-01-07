@@ -5,7 +5,7 @@ import java.text.DecimalFormat;
 /**
  * Created by octavian.guzu on 1/4/2017.
  */
-public class Item implements Cloneable{
+public class Item implements Cloneable {
     private String name = new String();
     private int ID;
     private double price;

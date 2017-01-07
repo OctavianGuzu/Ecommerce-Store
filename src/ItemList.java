@@ -27,7 +27,7 @@ public abstract class ItemList {
         }
     }
 
-    Node first=null;
+    Node first = null;
     Comparator comparator;
     LinkedList<Item> theOrder = new LinkedList<>();
 
@@ -40,30 +40,28 @@ public abstract class ItemList {
             return true;
         }
         Node aux = first;
-        if(aux.next == null) {
-            if(comparator.compare(item, aux.element) < 0) {
+        if (aux.next == null) {
+            if (comparator.compare(item, aux.element) < 0) {
                 nod.next = aux;
                 aux.prev = nod;
                 first = nod;
                 theOrder.addFirst(nod.element);
                 return true;
-            }
-            else {
+            } else {
                 aux.next = nod;
                 nod.prev = aux;
                 theOrder.addFirst(nod.element);
                 return true;
             }
         }
-        if(aux.next != null && comparator.compare(item, aux.element) < 0) {
+        if (aux.next != null && comparator.compare(item, aux.element) < 0) {
             nod.next = aux;
             aux.prev = nod;
             first = nod;
             theOrder.addFirst(nod.element);
             return true;
-        }
-        else {
-            while(aux.next != null && comparator.compare(item, aux.next.element) > 0) {
+        } else {
+            while (aux.next != null && comparator.compare(item, aux.next.element) > 0) {
                 aux = aux.next;
             }
             if (aux.next != null) {
@@ -73,8 +71,7 @@ public abstract class ItemList {
                 aux.next = nod;
                 theOrder.addFirst(nod.element);
                 return true;
-            }
-            else {
+            } else {
                 aux.next = nod;
                 nod.prev = aux;
                 theOrder.addFirst(nod.element);
@@ -87,7 +84,7 @@ public abstract class ItemList {
         StringBuffer result = new StringBuffer();
         Node aux = first;
         result.append("[");
-        if(aux == null) {
+        if (aux == null) {
             result.append("]");
             return result.toString();
         }
@@ -122,8 +119,8 @@ public abstract class ItemList {
     public Item getItemByID(int ID) {
         int i = 0;
         Node aux = first;
-        while(aux != null) {
-            if(aux.element.getID() == ID)
+        while (aux != null) {
+            if (aux.element.getID() == ID)
                 return aux.element;
             aux = aux.next;
         }
@@ -143,7 +140,7 @@ public abstract class ItemList {
     }
 
     public int indexOf(Item item) {
-        if(item == null)
+        if (item == null)
             return -1;
         Node aux = first;
         int index = 0;
@@ -189,7 +186,7 @@ public abstract class ItemList {
     }
 
     public Item remove(int index) {
-        if(index == -1)
+        if (index == -1)
             return null;
         Node aux = first;
         int i = 0;
@@ -199,7 +196,7 @@ public abstract class ItemList {
         }
         if (aux == null)
             return null;
-        if(aux.next == null && aux.prev == null) {
+        if (aux.next == null && aux.prev == null) {
             first = null;
             theOrder.remove(aux.element);
             return null;
@@ -255,20 +252,21 @@ public abstract class ItemList {
 
     public Item getCheapest() {
         Node toReturn = first;
-        if(toReturn == null)
+        if (toReturn == null)
             return null;
-        if(toReturn.next == null)
+        if (toReturn.next == null)
             return toReturn.element;
         Node aux = first.next;
-        while(aux != null) {
-            if(aux.element.getPrice() - toReturn.element.getPrice() < 0)
+        while (aux != null) {
+            if (aux.element.getPrice() - toReturn.element.getPrice() < 0)
                 toReturn = aux;
             aux = aux.next;
         }
         return toReturn.element;
     }
+
     public Item getFirst() {
-        if(first == null)
+        if (first == null)
             return null;
         return first.element;
     }

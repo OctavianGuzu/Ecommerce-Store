@@ -28,10 +28,10 @@ public class Customer implements Observer {
 
     @Override
     public void update(Notification notification) throws CloneNotSupportedException {
-        if(!notifications.contains(notification))
+        if (!notifications.contains(notification))
             notifications.add(notification);
 
-        if(notification.type == NotificationType.REMOVE) {
+        if (notification.type == NotificationType.REMOVE) {
             shoppingCart.removeByID(notification.productID);
             wishList.removeByID(notification.productID);
             Store magazin = Store.getInstance("", null, null);
@@ -39,28 +39,28 @@ public class Customer implements Observer {
             int departID = notification.departmentID;
             Department fromWhich = magazin.getDepartment(departID);
             int ok = 0;
-            for(int j=0;j<fromWhich.items.size();j++) {
+            for (int j = 0; j < fromWhich.items.size(); j++) {
                 Item toCheck = fromWhich.items.get(j);
-                if(wishList.getItemByID(toCheck.getID()) != null) {
-                    ok =1;
+                if (wishList.getItemByID(toCheck.getID()) != null) {
+                    ok = 1;
                     break;
                 }
             }
-            if( ok == 0) {
+            if (ok == 0) {
                 fromWhich.removeObserver(this);
             }
         }
 
-        if(notification.type == NotificationType.MODIFY) {
-            Store shop = Store.getInstance("",null,null);
+        if (notification.type == NotificationType.MODIFY) {
+            Store shop = Store.getInstance("", null, null);
             Department department = shop.getDepartment(notification.departmentID);
             Item newItem = department.getItem(notification.productID);
-            if(shoppingCart.getItemByID(notification.productID) != null) {
+            if (shoppingCart.getItemByID(notification.productID) != null) {
                 shoppingCart.removeByID(notification.productID);
                 Item itemClone = (Item) newItem.clone();
                 shoppingCart.add(itemClone);
             }
-            if(wishList.getItemByID(notification.productID) != null) {
+            if (wishList.getItemByID(notification.productID) != null) {
                 wishList.removeByID(notification.productID);
                 Item itemClone = (Item) newItem.clone();
                 wishList.add(itemClone);
@@ -68,86 +68,86 @@ public class Customer implements Observer {
         }
     }
 
-    public Item execute(){
-        if(strategy.equals("A")) {
+    public Item execute() {
+        if (strategy.equals("A")) {
             Item toReturn = wishList.getCheapest();
-            if(shoppingCart.getTotalPrice() + toReturn.getPrice() < budget) {
+            if (shoppingCart.getTotalPrice() + toReturn.getPrice() < budget) {
                 wishList.remove(toReturn);
                 shoppingCart.add(toReturn);
                 int DepartmentFrom = -1;
                 Store shopping = Store.getInstance("", null, null);
-                for(int j=0;j<shopping.getDepartments().size();j++) {
+                for (int j = 0; j < shopping.getDepartments().size(); j++) {
                     Department toLookIn = shopping.getDepartments().get(j);
-                    if(toLookIn.getItem(toReturn.getID()) != null) {
+                    if (toLookIn.getItem(toReturn.getID()) != null) {
                         DepartmentFrom = toLookIn.getId();
                         break;
                     }
                 }
                 int ok = 0;
-                for(int j=0;j<shopping.getDepartment(DepartmentFrom).items.size();j++) {
+                for (int j = 0; j < shopping.getDepartment(DepartmentFrom).items.size(); j++) {
                     Item itemToCheck = shopping.getDepartment(DepartmentFrom).items.get(j);
                     if (wishList.getItemByID(itemToCheck.getID()) != null) {
                         ok = 1;
                         break;
                     }
                 }
-                if( ok == 0) {
+                if (ok == 0) {
                     shopping.getDepartment(DepartmentFrom).removeObserver(this);
                 }
             }
             return toReturn;
         }
-        if(strategy.equals("B")) {
+        if (strategy.equals("B")) {
             Item toReturnn = wishList.getFirst();
-            if(shoppingCart.getTotalPrice() + toReturnn.getPrice() < budget) {
+            if (shoppingCart.getTotalPrice() + toReturnn.getPrice() < budget) {
                 wishList.remove(wishList.first.element);
                 shoppingCart.add(toReturnn);
                 int DepartmentFrom = -1;
                 Store shopping = Store.getInstance("", null, null);
-                for(int j=0;j<shopping.getDepartments().size();j++) {
+                for (int j = 0; j < shopping.getDepartments().size(); j++) {
                     Department toLookIn = shopping.getDepartments().get(j);
-                    if(toLookIn.getItem(toReturnn.getID()) != null) {
+                    if (toLookIn.getItem(toReturnn.getID()) != null) {
                         DepartmentFrom = toLookIn.getId();
                         break;
                     }
                 }
                 int ok = 1;
-                for(int j=0;j<shopping.getDepartment(DepartmentFrom).items.size();j++) {
+                for (int j = 0; j < shopping.getDepartment(DepartmentFrom).items.size(); j++) {
                     Item itemToCheck = shopping.getDepartment(DepartmentFrom).items.get(j);
                     if (wishList.getItemByID(itemToCheck.getID()) != null) {
                         ok = 0;
                         break;
                     }
                 }
-                if( ok == 1) {
+                if (ok == 1) {
                     shopping.getDepartment(DepartmentFrom).removeObserver(this);
                 }
             }
             return toReturnn;
         }
-        if(strategy.equals("C")) {
+        if (strategy.equals("C")) {
             Item toReturnn = wishList.getLastItem();
-            if(shoppingCart.getTotalPrice() + toReturnn.getPrice() < budget) {
+            if (shoppingCart.getTotalPrice() + toReturnn.getPrice() < budget) {
                 wishList.remove(toReturnn);
                 shoppingCart.add(toReturnn);
                 int DepartmentFrom = -1;
                 Store shopping = Store.getInstance("", null, null);
-                for(int j=0;j<shopping.getDepartments().size();j++) {
+                for (int j = 0; j < shopping.getDepartments().size(); j++) {
                     Department toLookIn = shopping.getDepartments().get(j);
-                    if(toLookIn.getItem(toReturnn.getID()) != null) {
+                    if (toLookIn.getItem(toReturnn.getID()) != null) {
                         DepartmentFrom = toLookIn.getId();
                         break;
                     }
                 }
                 int ok = 2;
-                for(int j=0;j<shopping.getDepartment(DepartmentFrom).items.size();j++) {
+                for (int j = 0; j < shopping.getDepartment(DepartmentFrom).items.size(); j++) {
                     Item itemToCheck = shopping.getDepartment(DepartmentFrom).items.get(j);
                     if (wishList.getItemByID(itemToCheck.getID()) != null) {
                         ok = 0;
                         break;
                     }
                 }
-                if( ok == 2) {
+                if (ok == 2) {
                     shopping.getDepartment(DepartmentFrom).removeObserver(this);
                 }
             }

@@ -13,9 +13,9 @@ public abstract class Department implements Subject {
     int ID;
 
     public boolean containsItemByID(Item i) {
-        for(int j=0;j<items.size();j++) {
+        for (int j = 0; j < items.size(); j++) {
             Item current = items.get(j);
-            if(current.getID() == i.getID())
+            if (current.getID() == i.getID())
                 return true;
         }
         return false;
@@ -55,16 +55,16 @@ public abstract class Department implements Subject {
 
     public void notifyAllObservers(Notification n) throws CloneNotSupportedException {
         if (n.type == NotificationType.REMOVE) {
-            if(customersWhoWish.size() == 3)
+            if (customersWhoWish.size() == 3)
                 customersWhoWish.get(2).update(n);
         }
-        for(int i=0;i<customersWhoWish.size();i++)
+        for (int i = 0; i < customersWhoWish.size(); i++)
             customersWhoWish.get(i).update(n);
     }
 
     public Item getItem(int ID) {
-        for(int i=0;i<items.size();i++)
-            if(items.get(i).getID() == ID)
+        for (int i = 0; i < items.size(); i++)
+            if (items.get(i).getID() == ID)
                 return items.get(i);
         return null;
     }

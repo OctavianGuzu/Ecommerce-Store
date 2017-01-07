@@ -5,6 +5,8 @@ package src;
  */
 public interface Subject {
     public void notifyAllObservers(Notification n) throws CloneNotSupportedException;
+
     public void addObserver(Customer c);
+
     public void removeObserver(Customer c);
 }

@@ -50,7 +50,7 @@ public class Store {
     }
 
     public static Store getInstance(String name, Vector<Customer> Customers, Vector<Department> Departments) {
-        if(instance == null)
+        if (instance == null)
             instance = new Store(name, Customers, Departments);
         return instance;
     }
