@@ -38,7 +38,7 @@ public class Test {
         return null;
     }
 
-    public static void main(String args[]) throws IOException {
+    public static void main(String args[]) throws IOException, CloneNotSupportedException {
         /*WishList cart = new WishList();
         cart.add(new Item("Octav", 10, 2.5));
         cart.add(new Item("Radu", 11, 3.7));
@@ -105,7 +105,10 @@ public class Test {
                             }
                         }
                         if(customerToAdd != null) {
-                            customerToAdd.shoppingCart.add(itemToAdd);
+                            Item newItem =(Item) itemToAdd.clone();
+                            customerToAdd.shoppingCart.add(newItem);
+                            if(!MainStore.getDepartment(departmentIDtoADD).customersWhoBought.contains(customerToAdd))
+                                MainStore.getDepartment(departmentIDtoADD).customersWhoBought.add(customerToAdd);
                         }
                     }
                     else {
@@ -118,8 +121,10 @@ public class Test {
                             }
                         }
                         if(customerToAdd != null) {
-                            customerToAdd.wishList.add(itemToAdd);
-                            MainStore.getDepartment(departmentIDtoADD).addObserver(customerToAdd);
+                            Item newItem =(Item) itemToAdd.clone();
+                            customerToAdd.wishList.add(newItem);
+                            if(!MainStore.getDepartment(departmentIDtoADD).customersWhoWish.contains(customerToAdd))
+                                MainStore.getDepartment(departmentIDtoADD).addObserver(customerToAdd);
                         }
                     }
                 }
@@ -200,8 +205,67 @@ public class Test {
                     departament.notifyAllObservers(notif);
                 }
             }
+            if(evenType.equals("getItems")) {
+                String whereTo = line.nextToken();
+                String customerName = line.nextToken();
+                if(whereTo.equals("ShoppingCart")) {
+                    for(int j=0;j<MainStore.Customers.size();j++) {
+                        Customer toPrint = MainStore.Customers.get(j);
+                        if(toPrint.name.equals(customerName)) {
+                            System.out.println(toPrint.shoppingCart);
+                            break;
+                        }
+                    }
+                }
+                else {
+                    for(int j=0;j<MainStore.Customers.size();j++) {
+                        Customer toPrint = MainStore.Customers.get(j);
+                        if(toPrint.name.equals(customerName)) {
+                            System.out.println(toPrint.wishList);
+                            break;
+                        }
+                    }
+                }
+            }
+            if(evenType.equals("getTotal")) {
+                String whereTo = line.nextToken();
+                String customerName = line.nextToken();
+                if(whereTo.equals("ShoppingCart")) {
+                    for(int j=0;j<MainStore.Customers.size();j++) {
+                        Customer toPrint = MainStore.Customers.get(j);
+                        if(toPrint.name.equals(customerName)) {
+                            System.out.println(toPrint.shoppingCart.getTotalPrice());
+                            break;
+                        }
+                    }
+                }
+                else {
+                    for(int j=0;j<MainStore.Customers.size();j++) {
+                        Customer toPrint = MainStore.Customers.get(j);
+                        if(toPrint.name.equals(customerName)) {
+                            System.out.println(toPrint.wishList.getTotalPrice());
+                            break;
+                        }
+                    }
+                }
+            }
+            if(evenType.equals("getObservers")) {
+                int DepID = Integer.parseInt(line.nextToken());
+                System.out.println(MainStore.getDepartment(DepID).customersWhoWish);
+            }
+            if(evenType.equals("getNotifications")) {
+                String CustName = line.nextToken();
+                for(int j=0;j<MainStore.Customers.size();j++) {
+                    Customer client = MainStore.Customers.get(j);
+                    if(client.name.equals(CustName)) {
+                        System.out.println(client.notifications);
+                        break;
+                    }
+                }
+            }
         }
-        System.out.println(MainStore.Customers.get(4).wishList);
+        //System.out.println(MainStore.Customers.get(4).wishList);
+        //System.out.println(MainStore.getDepartment(1).items);
 
 
 

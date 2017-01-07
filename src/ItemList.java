@@ -100,10 +100,17 @@ public abstract class ItemList {
     public String toString() {
         StringBuffer result = new StringBuffer();
         Node aux = first;
-        while (aux != null) {
-            result.append(aux.element + " ");
+        result.append("[");
+        if(aux == null) {
+            result.append("]");
+            return result.toString();
+        }
+        while (aux.next != null) {
+            result.append(aux.element + ", ");
             aux = aux.next;
         }
+        result.append(aux.element);
+        result.append("]");
         return result.toString();
     }
 

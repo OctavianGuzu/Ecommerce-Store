@@ -3,7 +3,7 @@ package src;
 /**
  * Created by octavian.guzu on 1/4/2017.
  */
-public class Item {
+public class Item implements Cloneable{
     private String name = new String();
     private int ID;
     private double price;
@@ -39,6 +39,10 @@ public class Item {
     }
 
     public String toString() {
-        return "(" + name + ";" + ID + ";" + price + ")";
+        return name + ";" + ID + ";" + price;
+    }
+
+    protected Object clone() throws CloneNotSupportedException {
+        return super.clone();
     }
 }

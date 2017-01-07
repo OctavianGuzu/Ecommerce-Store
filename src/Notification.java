@@ -23,6 +23,6 @@ public class Notification {
     }
 
     public String toString() {
-        return "("+type+", "+productID+", "+departmentID+")";
+        return type+";"+productID+";"+departmentID;
     }
 }

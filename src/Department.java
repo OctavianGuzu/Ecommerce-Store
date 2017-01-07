@@ -44,7 +44,7 @@ public abstract class Department implements Subject {
         customersWhoWish.remove(c);
     }
 
-    public void notifyAllObservers(Notification n) {
+    public void notifyAllObservers(Notification n) throws CloneNotSupportedException {
         for(int i=0;i<customersWhoWish.size();i++)
             customersWhoWish.get(i).update(n);
     }

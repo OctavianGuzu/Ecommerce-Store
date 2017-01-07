@@ -23,11 +23,11 @@ public class Customer implements Observer {
     }
 
     public String toString() {
-        return "("+name+", "+budget+", "+strategy+")";
+        return name;
     }
 
     @Override
-    public void update(Notification notification) {
+    public void update(Notification notification) throws CloneNotSupportedException {
         notifications.add(notification);
 
         if(notification.type == NotificationType.REMOVE) {
@@ -39,10 +39,16 @@ public class Customer implements Observer {
             Store shop = Store.getInstance("",null,null);
             Department department = shop.getDepartment(notification.departmentID);
             Item newItem = department.getItem(notification.productID);
-            shoppingCart.removeByID(notification.productID);
-            wishList.removeByID(notification.productID);
-            shoppingCart.add(newItem);
-            wishList.add(newItem);
+            if(shoppingCart.getItemByID(notification.productID) != null) {
+                shoppingCart.removeByID(notification.productID);
+                Item itemClone = (Item) newItem.clone();
+                shoppingCart.add(itemClone);
+            }
+            if(wishList.getItemByID(notification.productID) != null) {
+                wishList.removeByID(notification.productID);
+                Item itemClone = (Item) newItem.clone();
+                wishList.add(itemClone);
+            }
         }
     }
 }
