@@ -54,12 +54,9 @@ public abstract class Department implements Subject {
     }
 
     public void notifyAllObservers(Notification n) throws CloneNotSupportedException {
-        if (n.type == NotificationType.REMOVE) {
-            if (customersWhoWish.size() == 3)
-                customersWhoWish.get(2).update(n);
-        }
-        for (int i = 0; i < customersWhoWish.size(); i++)
-            customersWhoWish.get(i).update(n);
+        Vector<Customer> clona =(Vector<Customer>) customersWhoWish.clone();
+        for (int i = 0; i < clona.size(); i++)
+            clona.get(i).update(n);
     }
 
     public Item getItem(int ID) {
