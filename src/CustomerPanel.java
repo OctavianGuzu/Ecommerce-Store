@@ -24,7 +24,7 @@ public class CustomerPanel {
             public void actionPerformed(ActionEvent e) {
                 shopCart = new JFrame("Shopping Cart");
                 shopCart.setContentPane(new shopPanel(currentClient).panelMain);
-                shopCart.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                //shopCart.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 shopCart.setSize(300,400);
                 shopCart.pack();
                 shopCart.setVisible(true);
@@ -35,7 +35,7 @@ public class CustomerPanel {
             public void actionPerformed(ActionEvent e) {
                 wishListFrame = new JFrame("Wish List");
                 wishListFrame.setContentPane(new WishPanel(currentClient).panelMain);
-                wishListFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                //wishListFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 wishListFrame.setSize(300,400);
                 wishListFrame.pack();
                 wishListFrame.setVisible(true);
@@ -46,7 +46,7 @@ public class CustomerPanel {
             public void actionPerformed(ActionEvent e) {
                 notifFrame = new JFrame("Wish List");
                 notifFrame.setContentPane(new NotifForm(currentClient).mainPanel);
-                notifFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                //notifFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 notifFrame.setSize(300,400);
                 notifFrame.pack();
                 notifFrame.setVisible(true);

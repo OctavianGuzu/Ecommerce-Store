@@ -35,7 +35,7 @@ public class secondPanel {
                     GUI.secondframe.setVisible(true);
                     adminFrame = new JFrame("Administration page");
                     adminFrame.setContentPane(new StoreAdministration().panelMain);
-                    adminFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    //adminFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                     adminFrame.setSize(300,400);
                     adminFrame.pack();
                     adminFrame.setVisible(true);
@@ -49,7 +49,7 @@ public class secondPanel {
             public void actionPerformed(ActionEvent e) {
                 customersFrame = new JFrame("Store Customers");
                 customersFrame.setContentPane(new Customers().panelMain);
-                customersFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                //customersFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 customersFrame.setSize(800,800);
                 customersFrame.pack();
                 customersFrame.setVisible(true);
@@ -60,7 +60,7 @@ public class secondPanel {
             public void actionPerformed(ActionEvent e) {
                 allItems = new JFrame("Store Products");
                 allItems.setContentPane(new StoreProducts().panelMain);
-                allItems.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                //allItems.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 allItems.setSize(800,800);
                 allItems.pack();
                 allItems.setVisible(true);
