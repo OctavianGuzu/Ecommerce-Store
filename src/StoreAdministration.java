@@ -37,6 +37,10 @@ public class StoreAdministration {
                 //items = getItems();
                 list1.setListData(items);
                 panelMain.updateUI();
+                if(CustomerPanel.shopCart != null)
+                    CustomerPanel.shopCart.setVisible(false);
+                if(CustomerPanel.wishListFrame != null)
+                    CustomerPanel.wishListFrame.setVisible(false);
             }
         });
         addProductButton.addActionListener(new ActionListener() {
@@ -60,6 +64,22 @@ public class StoreAdministration {
                         items = getItems();
                         list1.setListData(items);
                         panelMain.updateUI();
+                        Store inst = Store.getInstance(null,null,null);
+                        for(int i=0;i<inst.getDepartments().size();i++) {
+                            if(inst.getDepartments().get(i).name.equals(departmentField.getText())) {
+                                try {
+                                    inst.getDepartments().get(i).notifyAllObservers(
+                                            new Notification(null, NotificationType.ADD,
+                                                    inst.getDepartments().get(i).ID, Integer.parseInt(IDfield.getText()))
+                                    );
+                                } catch (CloneNotSupportedException e1) {
+                                    e1.printStackTrace();
+                                }
+                                break;
+                            }
+                        }
+                        if(CustomerPanel.notifFrame != null)
+                            CustomerPanel.notifFrame.setVisible(false);
                     }
                 }
             }
@@ -143,8 +163,8 @@ public class StoreAdministration {
             }
         }
         if (departament != null) {
-            Notification notif = new Notification(null, NotificationType.REMOVE, departament.ID, productID);
-            departament.notifyAllObservers(notif);
+            //Notification notif = new Notification(null, NotificationType.REMOVE, departament.ID, productID);
+            //departament.notifyAllObservers(notif);
         }
     }
 }

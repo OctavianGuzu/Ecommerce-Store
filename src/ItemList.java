@@ -27,6 +27,20 @@ public abstract class ItemList {
         }
     }
 
+    public Vector<Item> getAllItems() {
+        Vector<Item> items = new Vector<>();
+        Node aux = first;
+        while(aux != null) {
+            items.add(aux.element);
+            aux = aux.next;
+        }
+        return items;
+    }
+
+    public void removeAll() {
+        first = null;
+    }
+
     Node first = null;
     Comparator comparator;
     LinkedList<Item> theOrder = new LinkedList<>();
@@ -78,6 +92,27 @@ public abstract class ItemList {
                 return true;
             }
         }
+    }
+
+    public Vector<Item> itemsThatExists() {
+        Vector<Item> items = new Vector<>();
+        Node aux = first;
+        while(aux !=null) {
+            if(isThere(aux.element))
+                items.add(aux.element);
+            aux=aux.next;
+        }
+        return items;
+    }
+
+    public boolean isThere(Item it) {
+        Store inst = Store.getInstance(null,null,null);
+        for(int i=0;i<inst.getDepartments().size();i++) {
+            for(int j=0;j<inst.getDepartments().get(i).items.size();j++)
+                if(inst.getDepartments().get(i).items.get(j).getID() == it.getID())
+                    return true;
+        }
+        return false;
     }
 
     public String toString() {

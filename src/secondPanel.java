@@ -14,8 +14,10 @@ public class secondPanel {
     private JButton customersButton;
     private JButton storeAdministrationButton;
     private JPasswordField passwordField1;
+    private JButton storeProductsButton;
     static JFrame adminFrame;
     static JFrame customersFrame;
+    static JFrame allItems;
 
     public secondPanel() {
         passwordField1.addActionListener(new ActionListener() {
@@ -51,6 +53,17 @@ public class secondPanel {
                 customersFrame.setSize(800,800);
                 customersFrame.pack();
                 customersFrame.setVisible(true);
+            }
+        });
+        storeProductsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                allItems = new JFrame("Store Products");
+                allItems.setContentPane(new StoreProducts().panelMain);
+                allItems.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                allItems.setSize(800,800);
+                allItems.pack();
+                allItems.setVisible(true);
             }
         });
     }

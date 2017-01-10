@@ -23,13 +23,15 @@ public class Customers {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Disabled for the moment
-                secondPanel.customersFrame.setVisible(false);
-                selectedClient = new JFrame(clientsList.getSelectedValue().toString());
-                selectedClient.setContentPane(new CustomerPanel().panelMain);
-                selectedClient.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                selectedClient.setSize(300,400);
-                selectedClient.pack();
-                selectedClient.setVisible(true);
+                if(clientsList.getSelectedValue() != null) {
+                    secondPanel.customersFrame.setVisible(false);
+                    selectedClient = new JFrame(clientsList.getSelectedValue().toString());
+                    selectedClient.setContentPane(new CustomerPanel((Customer) clientsList.getSelectedValue()).panelMain);
+                    selectedClient.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                    selectedClient.setSize(300, 400);
+                    selectedClient.pack();
+                    selectedClient.setVisible(true);
+                }
             }
         });
     }
